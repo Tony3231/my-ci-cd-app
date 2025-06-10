@@ -16,10 +16,13 @@ pipeline {
         }
 
         stage('Deploy') {
-            steps {
-                echo 'Deploying to app server...'
-                // Example: use SSH to copy files or restart service
-            }
-        }
+    steps {
+        sh """
+            scp -i your-key.pem target/app.jar ubuntu@13.233.238.104:/home/ubuntu/
+            ssh -i your-key.pem ubuntu@13.233.238.104 'nohup java -jar /home/ubuntu/app.jar > output.log 2>&1 &'
+        """
+    }
+}
+
     }
 }
