@@ -32,13 +32,13 @@ pipeline {
                         scp -o StrictHostKeyChecking=no -i \$SSH_KEY_PATH target/${APP_JAR_NAME} ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_PATH}/
 
                         echo "Restarting app on EC2..."
-                        ssh -o StrictHostKeyChecking=no -i \$SSH_KEY_PATH ${REMOTE_USER}@${REMOTE_HOST} '
+                        ssh -o StrictHostKeyChecking=no -i \$SSH_KEY_PATH ${REMOTE_USER}@${REMOTE_HOST} << 'EOF'
                             pkill -f "java -jar ${REMOTE_PATH}/${APP_JAR_NAME}" || true
                             echo "Old process killed (if any)."
 
                             nohup java -jar ${REMOTE_PATH}/${APP_JAR_NAME} > ${REMOTE_PATH}/output.log 2>&1 &
                             echo "New application started."
-                        '
+                        EOF
                     """
                 }
             }
