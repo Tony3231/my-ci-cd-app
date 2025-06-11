@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        REMOTE_HOST = '13.233.238.104'
+        REMOTE_HOST = '43.205.125.55'
         REMOTE_USER = 'ubuntu'
         REMOTE_PATH = '/home/ubuntu'
         APP_JAR_NAME = 'app.jar'
