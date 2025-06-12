@@ -2,17 +2,10 @@ pipeline {
     agent any
 
     environment {
-<<<<<<< HEAD
         REMOTE_HOST = '13.232.216.202'      // Your EC2 instance public IP
         REMOTE_USER = 'ubuntu'
         REMOTE_PATH = '/home/ubuntu'
-        APP_JAR_NAME = 'app.jar'            // This must match the actual JAR output
-=======
-        REMOTE_HOST = '13.232.216.202'       // Your EC2 instance public IP
-        REMOTE_USER = 'ubuntu'
-        REMOTE_PATH = '/home/ubuntu'
-        APP_JAR_NAME = 'app-all.jar'         // Correct JAR name from shadowJar
->>>>>>> cc0bd485e25d1ea50f76fd6df5bb396bef347e2b
+        APP_JAR_NAME = 'app-all.jar'        // Correct JAR name from shadowJar
         SSH_KEY_PATH = '/var/lib/jenkins/QA.pem'
     }
 
@@ -34,11 +27,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo '🚀 Deploying to EC2 instance...'
-<<<<<<< HEAD
                 sh '''
-=======
-                sh """
->>>>>>> cc0bd485e25d1ea50f76fd6df5bb396bef347e2b
                     chmod 400 ${SSH_KEY_PATH}
 
                     echo '📦 Copying JAR file to EC2...'
@@ -48,14 +37,9 @@ pipeline {
                     ssh -o StrictHostKeyChecking=no -i ${SSH_KEY_PATH} ${REMOTE_USER}@${REMOTE_HOST} '
                         pkill -f ${APP_JAR_NAME} || true
                         nohup java -jar ${REMOTE_PATH}/${APP_JAR_NAME} > app.log 2>&1 &
-<<<<<<< HEAD
                         exit 0
                     ' || true
                 '''
-=======
-                    '
-                """
->>>>>>> cc0bd485e25d1ea50f76fd6df5bb396bef347e2b
             }
         }
     }
