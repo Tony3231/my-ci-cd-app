@@ -2,10 +2,10 @@ pipeline {
     agent any
 
     environment {
-        REMOTE_HOST = '13.204.53.183'
+        REMOTE_HOST = '13.232.216.202' // Your EC2 instance public IP
         REMOTE_USER = 'ubuntu'
         REMOTE_PATH = '/home/ubuntu'
-        APP_JAR_NAME = 'app/build/libs/app.jar'
+        APP_JAR_NAME = 'app-1.0.jar' // This must match the actual JAR output
     }
 
     stages {
@@ -19,7 +19,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo '🔧 Building the application...'
-                sh './gradlew build'
+                sh './gradlew clean build'
             }
         }
 
@@ -28,10 +28,14 @@ pipeline {
                 echo '🚀 Deploying to EC2 instance...'
                 sh """
                     chmod 400 /var/lib/jenkins/QA.pem
-                    scp -o StrictHostKeyChecking=no -i /var/lib/jenkins/QA.pem build/libs/${APP_JAR_NAME} ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_PATH}/
+
+                    echo '📦 Copying JAR file to EC2...'
+                    scp -o StrictHostKeyChecking=no -i /var/lib/jenkins/QA.pem app/build/libs/${APP_JAR_NAME} ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_PATH}/
+
+                    echo '🔄 Restarting application on EC2...'
                     ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/QA.pem ${REMOTE_USER}@${REMOTE_HOST} "
-                      pkill -f ${APP_JAR_NAME} || true
-                      nohup java -jar ${REMOTE_PATH}/${APP_JAR_NAME} > app.log 2>&1 &
+                        pkill -f ${APP_JAR_NAME} || true
+                        nohup java -jar ${REMOTE_PATH}/${APP_JAR_NAME} > app.log 2>&1 &
                     "
                 """
             }
