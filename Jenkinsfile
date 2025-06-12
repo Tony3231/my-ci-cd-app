@@ -5,7 +5,7 @@ pipeline {
         REMOTE_HOST = '13.232.216.202' // Your EC2 instance public IP
         REMOTE_USER = 'ubuntu'
         REMOTE_PATH = '/home/ubuntu'
-        APP_JAR_NAME = 'app-1.0.jar' // This must match the actual JAR output
+        APP_JAR_NAME = 'app.jar' // This must match the actual JAR output
     }
 
     stages {
