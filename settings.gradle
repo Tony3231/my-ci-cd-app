@@ -10,9 +10,6 @@ plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '0.7.0'
 }
 
-<<<<<<< HEAD
 rootProject.name = 'my-ci-cd-app'
-=======
-rootProject.name = 'myapp-pipeline'
->>>>>>> 8aabe0ab384b7f07c49a61bff948ef2e44aeb7af
 include('app')
+
