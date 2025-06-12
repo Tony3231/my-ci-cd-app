@@ -5,7 +5,7 @@ pipeline {
         REMOTE_HOST = '13.204.53.183'
         REMOTE_USER = 'ubuntu'
         REMOTE_PATH = '/home/ubuntu'
-        APP_JAR_NAME = 'app.jar'
+        APP_JAR_NAME = 'app/build/libs/app.jar'
     }
 
     stages {
