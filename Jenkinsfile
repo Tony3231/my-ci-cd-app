@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        REMOTE_HOST = '13.203.230.78'       // Your EC2 instance public IP
+        REMOTE_HOST = '13.201.226.5'       // Your EC2 instance public IP
         REMOTE_USER = 'ubuntu'
         REMOTE_PATH = '/home/ubuntu'
         APP_JAR_NAME = 'app-all.jar'        // Name of your built JAR
